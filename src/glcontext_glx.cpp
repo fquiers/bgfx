@@ -102,7 +102,7 @@ namespace bgfx { namespace gl
 		if (NULL == m_display)
 		{
 			m_display = XOpenDisplay(NULL);
-            if (!m_display) printf("fquiers_debug: XOpenDisplay(NULL) : Failed to open default display\n");
+            if (!m_display) bx::printf("fquiers_debug: XOpenDisplay(NULL) : Failed to open default display\n");
 			BGFX_FATAL(m_display, Fatal::UnableToInitialize, "XOpenDisplay(NULL) : Failed to open default display");
 		}
 
@@ -112,9 +112,9 @@ namespace bgfx { namespace gl
 
 			int major, minor;
 			bool version = glXQueryVersion(m_display, &major, &minor);
-            if (!version) printf("fquiers_debug: Failed to query GLX version\n");
+            if (!version) bx::printf("fquiers_debug: Failed to query GLX version\n");
 			BGFX_FATAL(version, Fatal::UnableToInitialize, "Failed to query GLX version");
-            if (!((major == 1 && minor >= 2) || major > 1)) printf("fquiers_debug: GLX version is not >=1.2 (%d.%d)\n", major, minor);
+            if (!((major == 1 && minor >= 2) || major > 1)) bx::printf("fquiers_debug: GLX version is not >=1.2 (%d.%d)\n", major, minor);
 			BGFX_FATAL( (major == 1 && minor >= 2) || major > 1
 					, Fatal::UnableToInitialize
 					, "GLX version is not >=1.2 (%d.%d)."
@@ -193,12 +193,12 @@ namespace bgfx { namespace gl
 			}
 
 			XFree(configs);
-            if (!m_visualInfo) printf("fquiers_debug: Failed to find a suitable X11 display configuration.\n");
+            if (!m_visualInfo) bx::printf("fquiers_debug: Failed to find a suitable X11 display configuration.\n");
 			BGFX_FATAL(m_visualInfo, Fatal::UnableToInitialize, "Failed to find a suitable X11 display configuration.");
 
 			BX_TRACE("Create GL 2.1 context.");
 			m_context = glXCreateContext(m_display, m_visualInfo, 0, GL_TRUE);
-            if (m_context == NULL) printf("fquiers_debug: Failed to create GL 2.1 context.\n");
+            if (m_context == NULL) bx::printf("fquiers_debug: Failed to create GL 2.1 context.\n");
 			BGFX_FATAL(NULL != m_context, Fatal::UnableToInitialize, "Failed to create GL 2.1 context.");
 
 			glXCreateContextAttribsARB = glXGetProcAddress<PFNGLXCREATECONTEXTATTRIBSARBPROC>("glXCreateContextAttribsARB");
