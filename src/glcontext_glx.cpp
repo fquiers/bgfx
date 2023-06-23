@@ -193,11 +193,12 @@ namespace bgfx { namespace gl
 			}
 
 			XFree(configs);
-            if (!m_visualInfo) printf("fquiers_debug: XOpenDisplay(NULL) : Failed to find a suitable X11 display configuration.\n");
+            if (!m_visualInfo) printf("fquiers_debug: Failed to find a suitable X11 display configuration.\n");
 			BGFX_FATAL(m_visualInfo, Fatal::UnableToInitialize, "Failed to find a suitable X11 display configuration.");
 
 			BX_TRACE("Create GL 2.1 context.");
 			m_context = glXCreateContext(m_display, m_visualInfo, 0, GL_TRUE);
+            if (m_context == NULL) printf("fquiers_debug: Failed to create GL 2.1 context.\n");
 			BGFX_FATAL(NULL != m_context, Fatal::UnableToInitialize, "Failed to create GL 2.1 context.");
 
 			glXCreateContextAttribsARB = glXGetProcAddress<PFNGLXCREATECONTEXTATTRIBSARBPROC>("glXCreateContextAttribsARB");
